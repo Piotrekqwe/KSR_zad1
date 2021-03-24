@@ -1,4 +1,4 @@
-package pl.likonski;
+package ksr.pl.kw.gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class Controller implements Initializable {
+public class FxUserInterfaceController implements Initializable {
 
 
     public Button btn1, btn2;

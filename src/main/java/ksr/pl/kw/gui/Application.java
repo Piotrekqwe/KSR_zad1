@@ -1,4 +1,4 @@
-package pl.likonski;
+package ksr.pl.kw.gui;
 
 
 import javafx.fxml.FXMLLoader;
