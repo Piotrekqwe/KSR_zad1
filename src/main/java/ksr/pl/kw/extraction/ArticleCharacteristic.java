@@ -5,6 +5,7 @@ import ksr.pl.kw.classification.Country;
 public class ArticleCharacteristic {
     private int ID;
     private Country country;
+    //characteristicVector prawdopodobnie bedzie trzeba zamienic na pola z cechami
     private double[] characteristicVector;
 
     public ArticleCharacteristic(int ID, Country country, double[] characteristicVector) {

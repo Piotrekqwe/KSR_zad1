@@ -1,26 +1,41 @@
 package ksr.pl.kw.classification;
 
-import ksr.pl.kw.extraction.ArticleCharacteristic;
+
+import static java.lang.Math.sqrt;
 
 public enum Method {
-    EUCLIDES{
+    EUCLIDES {
         @Override
-        double process(double[] test, double[] learn) {
-            return 0;
+        double process(double[] distance) {
+            double sum = 0;
+            for (double d : distance) {
+                sum += d * d;
+            }
+            return sqrt(sum);
         }
     },
-    MANHATTAN{
+    MANHATTAN {
         @Override
-        double process(double[] test, double[] learn) {
-            return 0;
+        double process(double[] distance) {
+            double sum = 0;
+            for (double d : distance) {
+                sum += d;
+            }
+            return sum;
         }
     },
-    CHEBYSHEV{
+    CHEBYSHEV {
         @Override
-        double process(double[] test, double[] learn) {
-            return 0;
+        double process(double[] distance) {
+            double max = 0;
+            for (double d : distance) {
+                if (d > max) {
+                    max = d;
+                }
+            }
+            return max;
         }
     };
 
-    abstract double process(double[] test, double[] learn);
+    abstract double process(double[] distance);
 }
