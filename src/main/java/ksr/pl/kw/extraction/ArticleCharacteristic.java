@@ -3,10 +3,9 @@ package ksr.pl.kw.extraction;
 import ksr.pl.kw.classification.Country;
 
 public class ArticleCharacteristic {
+    public static final int NUMBER_OF_TRAITS = 10;
     private int ID;
     private Country country;
-    //characteristicVector prawdopodobnie bedzie trzeba zamienic na pola z cechami
-    private double[] characteristicVector;
 
     private int sentencesAmount;
     private int digitsAmount;
@@ -18,12 +17,6 @@ public class ArticleCharacteristic {
     private String dateFormat;
     private String lengthUnit;
     private String temperatureUnit;
-
-    public ArticleCharacteristic(int ID, Country country, double[] characteristicVector) {
-        this.ID = ID;
-        this.country = country;
-        this.characteristicVector = characteristicVector;
-    }
 
     public ArticleCharacteristic(int ID, Country country, int sentencesAmount, int digitsAmount, int shortWordsAmount,
                                  int longWordsAmount, int textLength, String largestAmountCitiesCountry, String currency, String dateFormat,
@@ -40,5 +33,53 @@ public class ArticleCharacteristic {
         this.dateFormat = dateFormat;
         this.lengthUnit = lengthUnit;
         this.temperatureUnit = temperatureUnit;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public int getSentencesAmount() {
+        return sentencesAmount;
+    }
+
+    public int getDigitsAmount() {
+        return digitsAmount;
+    }
+
+    public int getShortWordsAmount() {
+        return shortWordsAmount;
+    }
+
+    public int getLongWordsAmount() {
+        return longWordsAmount;
+    }
+
+    public int getTextLength() {
+        return textLength;
+    }
+
+    public String getLargestAmountCitiesCountry() {
+        return largestAmountCitiesCountry;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public String getDateFormat() {
+        return dateFormat;
+    }
+
+    public String getLengthUnit() {
+        return lengthUnit;
+    }
+
+    public String getTemperatureUnit() {
+        return temperatureUnit;
     }
 }
