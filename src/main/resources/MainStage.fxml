@@ -37,7 +37,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="btn1" focusTraversable="false" mnemonicParsing="false" onAction="#reset1" text="Wczytaj dane" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Button fx:id="btn1" focusTraversable="false" mnemonicParsing="false" onAction="#readDataFromFile" text="Wczytaj dane" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     </children>
                 </GridPane>
                 <GridPane GridPane.rowIndex="2">

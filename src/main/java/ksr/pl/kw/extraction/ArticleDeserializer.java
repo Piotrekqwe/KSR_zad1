@@ -21,7 +21,7 @@ public class ArticleDeserializer {
         this.filesInDirectory = direcory.listFiles();
 
         readDataFromFiles();
-        readArticlesDTO();
+        //readArticlesDTO();
     }
 
     public List<ArticleDTO> getAllArticles(){

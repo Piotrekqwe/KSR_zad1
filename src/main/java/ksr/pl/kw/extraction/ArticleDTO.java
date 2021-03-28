@@ -1,5 +1,7 @@
 package ksr.pl.kw.extraction;
 
+import ksr.pl.kw.classification.Country;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -30,6 +32,33 @@ public class ArticleDTO {
 
     public String getPlaces(){
         return places;
+    }
+
+    public Country getCountry(){
+        Country country;
+        switch(places) {
+            case "west-germany":
+                country = Country.WEST_GERMANY;
+                break;
+            case "usa":
+                country = Country.USA;
+                break;
+            case "france":
+                country = Country.FRANCE;
+                break;
+            case "uk":
+                country = Country.UK;
+                break;
+            case "canada":
+                country = Country.CANADA;
+                break;
+            case "japan":
+                country = Country.JAPAN;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + places);
+        }
+        return country;
     }
 
     public String getBody(){

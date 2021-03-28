@@ -1,5 +1,6 @@
 ksr\pl\kw\classification\Country.class
 ksr\pl\kw\classification\Method.class
+ksr\pl\kw\extraction\ArticleExtractionService.class
 ksr\pl\kw\gui\FxUserInterfaceController$1.class
 ksr\pl\kw\classification\Method$3.class
 ksr\pl\kw\extraction\ArticleDTO.class
@@ -14,6 +15,5 @@ ksr\pl\kw\extraction\CharacteristicsRecognitionService$1.class
 ksr\pl\kw\classification\Method$1.class
 ksr\pl\kw\gui\ClassifiedArticle.class
 ksr\pl\kw\gui\Application.class
-ksr\pl\kw\classification\KnnCalculator$1.class
 ksr\pl\kw\gui\Configuration.class
 ksr\pl\kw\extraction\ArticleCharacteristic.class

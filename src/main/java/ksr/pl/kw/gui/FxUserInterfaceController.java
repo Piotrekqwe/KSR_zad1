@@ -2,7 +2,6 @@ package ksr.pl.kw.gui;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -79,7 +78,8 @@ public class FxUserInterfaceController implements Initializable {
     public void keyRelease(KeyEvent key) {
     }
 
-    public void reset1() {
+    public void readDataFromFile() {
+        Configuration.getExtractionService().extract();
     }
 
     public void calculate() {
@@ -105,7 +105,7 @@ public class FxUserInterfaceController implements Initializable {
         weights[8] = Double.parseDouble(lengthUnitWeight.getText());
         weights[9] = Double.parseDouble(temperatureUnitWeight.getText());
 
-        classifiedArticles = Configuration.getService().classify(method, 10, weights);
+        classifiedArticles = Configuration.getClassificationService().classify(method, 10, weights);
         calculateValues();
     }
 

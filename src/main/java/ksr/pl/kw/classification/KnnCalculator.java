@@ -5,17 +5,17 @@ import ksr.pl.kw.extraction.ArticleCharacteristic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 public class KnnCalculator {
-    private ArticleCharacteristic[] learningCollection;
+    private List<ArticleCharacteristic> learningCollection;
 
-
-    public void setLearningCollection(ArticleCharacteristic[] learningCollection) {
+    public void setLearningCollection(List<ArticleCharacteristic> learningCollection) {
         this.learningCollection = learningCollection;
     }
 
     public Country classify(ArticleCharacteristic article, Method method, int K, double[] weights) {
-        ArrayList<ComparedArticle> articles = new ArrayList<>(learningCollection.length);
+        ArrayList<ComparedArticle> articles = new ArrayList<>(learningCollection.size());
         Country result = Country.USA;
 
         //calculating distance for each article in learning collection

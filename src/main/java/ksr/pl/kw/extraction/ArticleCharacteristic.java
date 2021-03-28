@@ -4,7 +4,6 @@ import ksr.pl.kw.classification.Country;
 
 public class ArticleCharacteristic {
     public static final int NUMBER_OF_TRAITS = 10;
-    private int ID;
     private Country country;
 
     private int sentencesAmount;
@@ -18,10 +17,9 @@ public class ArticleCharacteristic {
     private String lengthUnit;
     private String temperatureUnit;
 
-    public ArticleCharacteristic(int ID, Country country, int sentencesAmount, int digitsAmount, int shortWordsAmount,
+    public ArticleCharacteristic(Country country, int sentencesAmount, int digitsAmount, int shortWordsAmount,
                                  int longWordsAmount, int textLength, String largestAmountCitiesCountry, String currency, String dateFormat,
                                  String lengthUnit, String temperatureUnit) {
-        this.ID = ID;
         this.country = country;
         this.sentencesAmount = sentencesAmount;
         this.digitsAmount = digitsAmount;
@@ -35,9 +33,6 @@ public class ArticleCharacteristic {
         this.temperatureUnit = temperatureUnit;
     }
 
-    public int getID() {
-        return ID;
-    }
 
     public Country getCountry() {
         return country;

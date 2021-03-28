@@ -110,7 +110,6 @@ public class CharacteristicsRecognitionService {
         return theMostFrequentCountry;
     }
 
-
     //country (currency)
     public String largestAmountCurrency(ArticleDTO articleDTO){
 
@@ -140,7 +139,6 @@ public class CharacteristicsRecognitionService {
 
         return theMostFrequentCurrency;
     }
-
 
     //date format
     public String largestAmountDateFormat(ArticleDTO articleDTO){
@@ -179,7 +177,6 @@ public class CharacteristicsRecognitionService {
         return theMostFrequentDateFormat;
     }
 
-
     //length units
     public String largestAmountLengthUnit(ArticleDTO articleDTO){
         String theMostFrequentUnit = "";
@@ -207,7 +204,6 @@ public class CharacteristicsRecognitionService {
         return theMostFrequentUnit;
     }
 
-
     //temperature unit
     public String largestAmountTemperatureUnit(ArticleDTO articleDTO){
         String theMostFrequentUnit = "";
@@ -225,6 +221,12 @@ public class CharacteristicsRecognitionService {
         System.out.println(words);
 
         return theMostFrequentUnit;
+    }
+
+    public ArticleCharacteristic recognize(ArticleDTO DTO){
+        return new ArticleCharacteristic(DTO.getCountry(), amountOfSentences(DTO), digitsAmount(DTO), shortWordsAmount(DTO),
+                longWordsAmount(DTO), wordsAmountInArticle(DTO), largestAmountCitiesCountry(DTO), largestAmountCurrency(DTO),
+                largestAmountDateFormat(DTO), largestAmountLengthUnit(DTO), largestAmountTemperatureUnit(DTO));
     }
 
     private Map<String, String> readDatafromCSV(String path){
