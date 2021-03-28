@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ArticleDeserializer {
 
-    private String filePath = "K:\\PL_INFORMATYKA\\SEMESTR_6\\Komputerowe_systemy_rozpoznawania\\Projekt_1\\articles";
+    private String filePath = "src/main/resources/article";
     private List<ArticleDTO> allArticles=new ArrayList<ArticleDTO>();
     private List<ArticleDTO> trainArticles;
     private List<ArticleDTO> testArticles;

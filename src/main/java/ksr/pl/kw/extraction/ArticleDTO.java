@@ -52,7 +52,7 @@ public class ArticleDTO {
     private void readStopWordsFromFile(){
 
         this.stopWordsEnglish = new ArrayList<String>();
-        File file = new File("K:\\PL_INFORMATYKA\\SEMESTR_6\\Komputerowe_systemy_rozpoznawania\\Projekt_1\\stop_words_english.txt");
+        File file = new File("src/main/resources/data/stop_words_english.txt");
 
         try{
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));

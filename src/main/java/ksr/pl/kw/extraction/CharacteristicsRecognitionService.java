@@ -90,7 +90,7 @@ public class CharacteristicsRecognitionService {
 
         //System.out.println(readDatafromCSV("K:\\PL_INFORMATYKA\\SEMESTR_6\\Komputerowe_systemy_rozpoznawania\\Projekt_1\\worldcities.csv"));
 
-        Map <String, String> cityCountry = readDatafromCSV("K:\\PL_INFORMATYKA\\SEMESTR_6\\Komputerowe_systemy_rozpoznawania\\Projekt_1\\worldcities.csv");
+        Map <String, String> cityCountry = readDatafromCSV("src/main/resources/data/worldcities.csv");
         List<String> textWithNoStopWords = articleDTO.stopWordsRemover();
         List<String> countriesOfCitiesFromArticle = new ArrayList<String>();
         List<String> citiesFromMap = new ArrayList<String>(cityCountry.keySet());
@@ -151,16 +151,18 @@ public class CharacteristicsRecognitionService {
         for(String word : words){
 
             if(determineDateFormat(word) != null) {
-                String[] temp = word.split("[-./]");
+                //String[] temp = new String[2];
+                //temp = word.split("[-./]");
+                List<String> temp = new ArrayList<String>(Arrays.asList(word.split("[-./]")));
                 //System.out.println(temp[0] + temp[1] + temp[2]);
                 int moreThan12 = 0;
-
-                if(Integer.parseInt(temp[0]) > 12)
-                    moreThan12++;
-                if(Integer.parseInt(temp[1]) > 12)
-                    moreThan12++;
-                if(Integer.parseInt(temp[2]) > 12)
-                    moreThan12++;
+                if(temp.size() == 3){
+                    for(String s : temp){
+                        if(Integer.parseInt(s) > 12){
+                            moreThan12++;
+                        }
+                    }
+                }
 
                 //System.out.println(moreThan12);
                 if(moreThan12 > 1){
@@ -264,7 +266,7 @@ public class CharacteristicsRecognitionService {
         return word;
     }
 
-    private static final Map<String, String> DATE_FORMAT_REGEXPS = new HashMap<String, String>() {{
+    private static final Map<String, String> DATE_FORMAT_REGEX = new HashMap<String, String>() {{
         put("^\\d{8}$", "yyyyMMdd");
         put("^\\d{1,2}-\\d{1,2}-\\d{4}$", "dd-MM-yyyy");
         put("^\\d{1,2}.\\d{1,2}.\\d{4}$", "dd.MM.yyyy");
@@ -280,9 +282,9 @@ public class CharacteristicsRecognitionService {
     }};
 
     public static String determineDateFormat(String dateString) {
-        for (String regexp : DATE_FORMAT_REGEXPS.keySet()) {
+        for (String regexp : DATE_FORMAT_REGEX.keySet()) {
             if (dateString.toLowerCase().matches(regexp)) {
-                return DATE_FORMAT_REGEXPS.get(regexp);
+                return DATE_FORMAT_REGEX.get(regexp);
             }
         }
         return null; // Unknown format.
