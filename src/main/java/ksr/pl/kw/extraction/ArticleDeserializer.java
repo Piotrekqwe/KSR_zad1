@@ -115,14 +115,13 @@ public class ArticleDeserializer {
     public void selectTrainAndTestSet(int percentageOfTrainSet){
 
         int amountOfTrainArticles = (int) Math.ceil((allArticles.size()*percentageOfTrainSet)/100);
-        int amountOfTestArticles = allArticles.size() - amountOfTrainArticles;
 
-        for(int i=0; i<amountOfTestArticles; i++){
+        for(int i=0; i<amountOfTrainArticles; i++){
             trainArticles.add(allArticles.get(i));
         }
 
-        for(int i=(amountOfTestArticles+1); i<allArticles.size(); i++){
-            trainArticles.add(allArticles.get(i));
+        for(int i=(amountOfTrainArticles); i<allArticles.size(); i++){
+            testArticles.add(allArticles.get(i));
         }
     }
 
