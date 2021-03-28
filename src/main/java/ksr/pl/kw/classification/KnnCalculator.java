@@ -14,7 +14,7 @@ public class KnnCalculator {
     }
 
 
-    public Country classify(ArticleCharacteristic article, Method method, int K) {
+    public Country classify(ArticleCharacteristic article, Method method, int K, double[] weights) {
         ArrayList<ComparedArticle> articles = new ArrayList<>(learningCollection.length);
         Country result = Country.USA;
 
@@ -56,8 +56,44 @@ public class KnnCalculator {
                 distance[4] = 1 - (double) article.getTextLength() / learningArticle.getTextLength();
             }
 
-            //TODO: implenentacja porównywania pozostałych cech
+            //largestAmountCitiesCountry
+            if(article.getLargestAmountCitiesCountry().equals(learningArticle.getLargestAmountCitiesCountry())){
+                distance[5] = 0;
+            }else{
+                distance[5] = 1;
+            }
 
+            //currency
+            if(article.getCurrency().equals(learningArticle.getCurrency())){
+                distance[6] = 0;
+            }else{
+                distance[6] = 1;
+            }
+
+            //dateFormat
+            if(article.getDateFormat().equals(learningArticle.getDateFormat())){
+                distance[7] = 0;
+            }else{
+                distance[7] = 1;
+            }
+
+            //lengthUnit
+            if(article.getLengthUnit().equals(learningArticle.getLengthUnit())){
+                distance[8] = 0;
+            }else{
+                distance[8] = 1;
+            }
+
+            //temperatureUnit
+            if(article.getTemperatureUnit().equals(learningArticle.getTemperatureUnit())){
+                distance[9] = 0;
+            }else{
+                distance[9] = 1;
+            }
+
+            for(int i = 0; i < ArticleCharacteristic.NUMBER_OF_TRAITS; i++){
+                distance[i] *= weights[i];
+            }
 
             articles.add(new ComparedArticle(learningArticle, method.process(distance)));
         }
