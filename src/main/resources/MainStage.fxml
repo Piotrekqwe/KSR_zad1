@@ -232,11 +232,11 @@
                        <ToggleGroup fx:id="countryToggle" />
                    </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="USABtn" mnemonicParsing="false" text="USA" GridPane.rowIndex="1" />
-                  <RadioButton fx:id="FranceBtn" mnemonicParsing="false" text="France" GridPane.rowIndex="2" />
-                  <RadioButton fx:id="UKBtn" mnemonicParsing="false" text="UK" GridPane.rowIndex="3" />
-                  <RadioButton fx:id="CanadaBtn" mnemonicParsing="false" text="Canada" GridPane.rowIndex="4" />
-                  <RadioButton fx:id="JapanBtn" mnemonicParsing="false" text="Japan" GridPane.rowIndex="5" />
+                  <RadioButton fx:id="USABtn" mnemonicParsing="false" text="USA" toggleGroup="$countryToggle" GridPane.rowIndex="1" />
+                  <RadioButton fx:id="FranceBtn" mnemonicParsing="false" text="France" toggleGroup="$countryToggle" GridPane.rowIndex="2" />
+                  <RadioButton fx:id="UKBtn" mnemonicParsing="false" text="UK" toggleGroup="$countryToggle" GridPane.rowIndex="3" />
+                  <RadioButton fx:id="CanadaBtn" mnemonicParsing="false" text="Canada" toggleGroup="$countryToggle" GridPane.rowIndex="4" />
+                  <RadioButton fx:id="JapanBtn" mnemonicParsing="false" text="Japan" toggleGroup="$countryToggle" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </children>
