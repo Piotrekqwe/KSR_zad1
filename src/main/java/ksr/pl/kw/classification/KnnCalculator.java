@@ -3,21 +3,22 @@ package ksr.pl.kw.classification;
 import ksr.pl.kw.extraction.ArticleCharacteristic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class KnnCalculator {
     private ArticleCharacteristic[] learningCollection;
 
 
-    public KnnCalculator(ArticleCharacteristic[] learningCollection) {
+    public void setLearningCollection(ArticleCharacteristic[] learningCollection) {
         this.learningCollection = learningCollection;
     }
-
 
     public Country classify(ArticleCharacteristic article, Method method, int K, double[] weights) {
         ArrayList<ComparedArticle> articles = new ArrayList<>(learningCollection.length);
         Country result = Country.USA;
 
+        //calculating distance for each article in learning collection
         for (ArticleCharacteristic learningArticle : learningCollection) {
             double[] distance = new double[ArticleCharacteristic.NUMBER_OF_TRAITS];
 
@@ -98,70 +99,22 @@ public class KnnCalculator {
             articles.add(new ComparedArticle(learningArticle, method.process(distance)));
         }
 
-
-        articles.sort(new Comparator<ComparedArticle>() {
-            @Override
-            public int compare(ComparedArticle o1, ComparedArticle o2) {
-                return o1.distance.compareTo(o2.distance);
-            }
-        });
+        articles.sort(Comparator.comparing(comparedArticle -> comparedArticle.distance));
 
         if (K < articles.size()) {
             K = articles.size();
         }
-        //zliczanie k najblizszych sąsiadów (których krajów jest najwięcej)
+
+        //counting k nearest neighbours
         int max = 0;
-        int[] counts = new int[6];
+        int[] counts = new int[Country.values().length];
         for(int i = 0; i < K; i++){
             int num;
-            switch (articles.get(i).article.getCountry()){
-                case WEST_GERMANY:
-                    num = 0;
-                    break;
-                case USA:
-                    num = 1;
-                    break;
-                case FRANCE:
-                    num = 2;
-                    break;
-                case UK:
-                    num = 3;
-                    break;
-                case CANADA:
-                    num = 4;
-                    break;
-                case JAPAN:
-                    num = 5;
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + articles.get(i).article.getCountry());
-            }
-            counts[num]++;
+            counts[articles.get(i).article.getCountry().id]++;
 
-            if(counts[num] > max){
-                max = counts[num];
-                switch (num){
-                    case 0:
-                        result = Country.WEST_GERMANY;
-                        break;
-                    case 1:
-                        result = Country.USA;
-                        break;
-                    case 2:
-                        result = Country.FRANCE;
-                        break;
-                    case 3:
-                        result = Country.UK;
-                        break;
-                    case 4:
-                        result = Country.CANADA;
-                        break;
-                    case 5:
-                        result = Country.JAPAN;
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + articles.get(i).article.getCountry());
-                }
+            if(counts[articles.get(i).article.getCountry().id] > max){
+                max = counts[articles.get(i).article.getCountry().id];
+                result = articles.get(i).article.getCountry();
             }
         }
 
