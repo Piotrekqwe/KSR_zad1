@@ -5,7 +5,10 @@ import ksr.pl.kw.extraction.ArticleDTO;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.*;
+import static java.util.Locale.*;
+import static java.text.DateFormat.*;
 import java.util.stream.Collectors;
 
 public class CharacteristicsRecognitionService {
@@ -141,31 +144,85 @@ public class CharacteristicsRecognitionService {
 
     //date format
     public String largestAmountDateFormat(ArticleDTO articleDTO){
-        String dateFormat = "";
+        String theMostFrequentDateFormat = "";
+        List<String> words = articleDTO.splitText(articleDTO.getBody());
+        List<String> dateFormatsList = new ArrayList<String>();
 
-        
+        for(String word : words){
 
-        return dateFormat;
+            if(determineDateFormat(word) != null) {
+                String[] temp = word.split("[-./]");
+                //System.out.println(temp[0] + temp[1] + temp[2]);
+                int moreThan12 = 0;
+
+                if(Integer.parseInt(temp[0]) > 12)
+                    moreThan12++;
+                if(Integer.parseInt(temp[1]) > 12)
+                    moreThan12++;
+                if(Integer.parseInt(temp[2]) > 12)
+                    moreThan12++;
+
+                //System.out.println(moreThan12);
+                if(moreThan12 > 1){
+                    dateFormatsList.add(determineDateFormat(word));
+                }
+
+            }
+        }
+        theMostFrequentDateFormat = theMostFrequentWord(dateFormatsList);
+
+        //System.out.println(dateFormatsList);
+        //System.out.println(words);
+
+        return theMostFrequentDateFormat;
     }
 
 
     //length units
     public String largestAmountLengthUnit(ArticleDTO articleDTO){
-        String unit = "";
+        String theMostFrequentUnit = "";
+        List<String> lengthUnits =
+                List.of("thou", "mil", "line", "inch", "foot", "yard", "mile", "league",
+                        "mils", "lines", "inches", "feet", "yards", "miles", "leagues",
+                        "meter", "m", "kilometer", "km", "millimeter", "mm", "centimeter", "cm",
+                        "decimeter", "dm", "micrometer", "μm", "nanometer", "nm",
+                        "meters", "kilometers", "millimeters", "centimeters",
+                        "decimeters", "micrometers", "nanometers");
+
+        List<String> words = articleDTO.splitText(articleDTO.getBody().replaceAll("[^A-Za-z\\s]", ""));
+        List<String> lengthUnitsFromArticle = new ArrayList<String>();
+
+        for(String word : words){
+
+            if(lengthUnits.contains(word)) {
+                lengthUnitsFromArticle.add(word);
+            }
+        }
+        theMostFrequentUnit = theMostFrequentWord(lengthUnitsFromArticle);
+        System.out.println(words);
 
 
-
-        return unit;
+        return theMostFrequentUnit;
     }
 
 
     //temperature unit
     public String largestAmountTemperatureUnit(ArticleDTO articleDTO){
-        String unit = "";
+        String theMostFrequentUnit = "";
+        List<String> words = articleDTO.splitText(articleDTO.getBody().replaceAll("[^A-Za-z\\s]", ""));
+        List<String> temperatureUnits = List.of("K", "C", "F", "Kelvin", "Celcius", "Fahrenheit");
+        List<String> temperatureUnitsFromArticle = new ArrayList<String>();
 
+        for(String word : words){
 
+            if(temperatureUnits.contains(word)) {
+                temperatureUnitsFromArticle.add(word);
+            }
+        }
+        theMostFrequentUnit = theMostFrequentWord(temperatureUnitsFromArticle);
+        System.out.println(words);
 
-        return unit;
+        return theMostFrequentUnit;
     }
 
     private Map<String, String> readDatafromCSV(String path){
@@ -205,6 +262,30 @@ public class CharacteristicsRecognitionService {
             word = Collections.max(map.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
         }
         return word;
+    }
+
+    private static final Map<String, String> DATE_FORMAT_REGEXPS = new HashMap<String, String>() {{
+        put("^\\d{8}$", "yyyyMMdd");
+        put("^\\d{1,2}-\\d{1,2}-\\d{4}$", "dd-MM-yyyy");
+        put("^\\d{1,2}.\\d{1,2}.\\d{4}$", "dd.MM.yyyy");
+        put("^\\d{1,2}-\\d{1,2}-\\d{2}$", "dd-MM-yy");
+        put("^\\d{1,2}.\\d{1,2}.\\d{2}$", "dd.MM.yy");
+        put("^\\d{4}-\\d{1,2}-\\d{1,2}$", "yyyy-MM-dd");
+        put("^\\d{4}.\\d{1,2}.\\d{1,2}$", "yyyy.MM.dd");
+        put("^\\d{1,2}/\\d{1,2}/\\d{4}$", "MM/dd/yyyy");
+        put("^\\d{1,2}/\\d{1,2}/\\d{2}$", "MM/dd/yy");
+        put("^\\d{4}/\\d{1,2}/\\d{1,2}$", "yyyy/MM/dd");
+        put("^\\d{1,2}\\s[a-z]{3}\\s\\d{4}$", "dd MMM yyyy");
+        put("^\\d{1,2}\\s[a-z]{4,}\\s\\d{4}$", "dd MMMM yyyy");
+    }};
+
+    public static String determineDateFormat(String dateString) {
+        for (String regexp : DATE_FORMAT_REGEXPS.keySet()) {
+            if (dateString.toLowerCase().matches(regexp)) {
+                return DATE_FORMAT_REGEXPS.get(regexp);
+            }
+        }
+        return null; // Unknown format.
     }
 
 }

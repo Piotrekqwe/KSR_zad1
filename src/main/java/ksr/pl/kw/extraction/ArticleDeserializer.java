@@ -74,7 +74,7 @@ public class ArticleDeserializer {
                         String cos=places[0].replaceAll("<D>","");
                         if(!selectCountries(cos))
                             continue;
-                        if (places.length > 2) {//przez split w tablicy jest jedno puste miejsce na koncu listy
+                        if (places.length > 1) {
                             continue;
                         }
                         if(!temp[1].contains("<BODY>"))
