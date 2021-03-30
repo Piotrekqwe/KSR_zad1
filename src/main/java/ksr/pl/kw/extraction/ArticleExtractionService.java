@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ArticleExtractionService {
-
-    private static final CharacteristicsRecognitionService recognitionService = Configuration.getRecognitionService();
-
     public void extract() {
-        Configuration.getDeserializer().selectTrainAndTestSet(50);
+        CharacteristicsRecognitionService recognitionService = Configuration.getRecognitionService();
+        Configuration.getDeserializer().selectTrainAndTestSet(60);
         List<ArticleDTO> trainArticles = Configuration.getDeserializer().getTrainArticles();
         List<ArticleDTO> testArticles = Configuration.getDeserializer().getTestArticles();
         List<ArticleCharacteristic> trainCharacteristics = trainArticles.stream().map(recognitionService::recognize).collect(Collectors.toList());

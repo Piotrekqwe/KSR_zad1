@@ -110,6 +110,7 @@ public class FxUserInterfaceController implements Initializable {
     }
 
     private static final DecimalFormat df3 = new DecimalFormat("#.###");
+
     public void calculateValues() {
         int t = 0;
         int N = classifiedArticles.size();
@@ -120,53 +121,48 @@ public class FxUserInterfaceController implements Initializable {
         double precision;
         double recall;
         double F1;
-        Toggle selectedToggle = methodToggle.getSelectedToggle();
+        Toggle selectedToggle = countryToggle.getSelectedToggle();
         Country country;
         if (WestGermanyBtn.equals(selectedToggle)) {
             country = Country.WEST_GERMANY;
-        }
-        else if (USABtn.equals(selectedToggle)) {
+        } else if (USABtn.equals(selectedToggle)) {
             country = Country.USA;
-        }
-        else if (FranceBtn.equals(selectedToggle)) {
+        } else if (FranceBtn.equals(selectedToggle)) {
             country = Country.FRANCE;
-        }
-        else if (UKBtn.equals(selectedToggle)) {
+        } else if (UKBtn.equals(selectedToggle)) {
             country = Country.UK;
-        }
-        else if (CanadaBtn.equals(selectedToggle)) {
+        } else if (CanadaBtn.equals(selectedToggle)) {
             country = Country.CANADA;
-        }
-        else {
+        } else {
             country = Country.JAPAN;
         }
 
         for (ClassifiedArticle cArticle : classifiedArticles) {
-            if(cArticle.article.getCountry().equals(cArticle.country)){
+            if (cArticle.article.getCountry().equals(cArticle.country)) {
                 t++;
             }
-            if(cArticle.country.equals(country)){
-                if(cArticle.article.getCountry().equals(cArticle.country)){
+            if (cArticle.country.equals(country)) {
+                if (cArticle.article.getCountry().equals(cArticle.country)) {
                     TP++;
-                }
-                else{
+                } else {
                     FP++;
                 }
             }
-            if(cArticle.article.getCountry().equals(country)){
-                if(!cArticle.article.getCountry().equals(cArticle.country)){
+            if (cArticle.article.getCountry().equals(country)) {
+                if (!cArticle.article.getCountry().equals(cArticle.country)) {
                     FN++;
                 }
             }
-            accuracy = (double)t/N;
-            precision = (double)TP/(TP + FP);
-            recall = (double)TP/(TP + FN);
-            F1 = 2 * precision * recall/(precision + recall);
-
-            accuracyDisplay.setText("Accuracy = " + df3.format(accuracy));
-            accuracyDisplay.setText("Precision = " + df3.format(precision));
-            accuracyDisplay.setText("Recall = " + df3.format(recall));
-            accuracyDisplay.setText("F1 = " + df3.format(F1));
         }
+        accuracy = (double) t / N;
+        precision = (double) TP / (TP + FP);
+        recall = (double) TP / (TP + FN);
+        F1 = 2 * precision * recall / (precision + recall);
+
+        accuracyDisplay.setText("Accuracy = " + df3.format(accuracy));
+        precisionDisplay.setText("Precision = " + df3.format(precision));
+        recallDisplay.setText("Recall = " + df3.format(recall));
+        F1Display.setText("F1 = " + df3.format(F1));
+
     }
 }

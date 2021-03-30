@@ -1,2 +1,13 @@
-C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\pl\likonski\Application.java
-C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\pl\likonski\Controller.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\extraction\ArticleCharacteristic.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\classification\ArticleClassificationService.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\gui\FxUserInterfaceController.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\extraction\CharacteristicsRecognitionService.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\classification\Method.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\gui\Application.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\classification\Country.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\gui\ClassifiedArticle.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\classification\KnnCalculator.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\extraction\ArticleDeserializer.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\extraction\ArticleExtractionService.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\extraction\ArticleDTO.java
+C:\Users\Piotr\Desktop\semestr_6\Komputerowe_Systemy_Rozpoznawania\zad1\KSR_zad1\src\main\java\ksr\pl\kw\gui\Configuration.java

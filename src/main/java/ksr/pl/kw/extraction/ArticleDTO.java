@@ -92,7 +92,7 @@ public class ArticleDTO {
             }
 
         }catch (IOException e){
-            System.out.println(e);
+            e.printStackTrace();
         }
     }
 

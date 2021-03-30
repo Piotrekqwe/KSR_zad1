@@ -3,6 +3,7 @@ package ksr.pl.kw.extraction;
 import org.jsoup.nodes.Document;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,9 +11,9 @@ import java.util.List;
 public class ArticleDeserializer {
 
     private String filePath = "src/main/resources/article";
-    private List<ArticleDTO> allArticles=new ArrayList<ArticleDTO>();
-    private List<ArticleDTO> trainArticles;
-    private List<ArticleDTO> testArticles;
+    private List<ArticleDTO> allArticles = new ArrayList<>();
+    private List<ArticleDTO> trainArticles = new ArrayList<>();
+    private List<ArticleDTO> testArticles = new ArrayList<>();
     private File[] filesInDirectory;
 
     public ArticleDeserializer(){
@@ -91,15 +92,8 @@ public class ArticleDeserializer {
                 }
 
             }catch (IOException e){
-                System.out.println(e);
+                e.printStackTrace();
             }
-        }
-    }
-
-    private void readArticlesDTO(){
-
-        for(ArticleDTO articleDTO : allArticles){
-            System.out.println(articleDTO);
         }
     }
 

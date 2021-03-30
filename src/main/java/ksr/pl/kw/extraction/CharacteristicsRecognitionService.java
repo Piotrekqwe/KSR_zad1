@@ -20,9 +20,8 @@ public class CharacteristicsRecognitionService {
     public int amountOfSentences(ArticleDTO articleDTO){
 
         int amount = 0;
-        List<String> splittedText = new ArrayList<String>(Arrays.asList(articleDTO.getBody().split("[\\.!?]")));
+        List<String> splittedText = new ArrayList<>(Arrays.asList(articleDTO.getBody().split("[\\.!?]")));
 
-        System.out.println(splittedText);
 
         amount = splittedText.size();
 
@@ -51,7 +50,6 @@ public class CharacteristicsRecognitionService {
         int amount = 0;
         String text = articleDTO.getBody().replaceAll("[^A-Za-z\\s]", "");
         List<String> words = articleDTO.splitText(text);
-        System.out.println(words);
 
         for(String word : words){
             if(word.length() < 4 && !word.isEmpty()){
@@ -103,8 +101,6 @@ public class CharacteristicsRecognitionService {
             }
         }
 
-        System.out.println(countriesOfCitiesFromArticle);
-
         theMostFrequentCountry = theMostFrequentWord(countriesOfCitiesFromArticle);
 
         return theMostFrequentCountry;
@@ -133,7 +129,6 @@ public class CharacteristicsRecognitionService {
                 textWithCurrencyCodes.add(word);
             }
         }
-        System.out.println(textWithCurrencyCodes);
 
         theMostFrequentCurrency = theMostFrequentWord(textWithCurrencyCodes);
 
@@ -198,7 +193,6 @@ public class CharacteristicsRecognitionService {
             }
         }
         theMostFrequentUnit = theMostFrequentWord(lengthUnitsFromArticle);
-        System.out.println(words);
 
 
         return theMostFrequentUnit;
@@ -218,7 +212,6 @@ public class CharacteristicsRecognitionService {
             }
         }
         theMostFrequentUnit = theMostFrequentWord(temperatureUnitsFromArticle);
-        System.out.println(words);
 
         return theMostFrequentUnit;
     }
@@ -231,7 +224,7 @@ public class CharacteristicsRecognitionService {
 
     private Map<String, String> readDatafromCSV(String path){
 
-        Map<String, String> cityCountry = new HashMap<String, String>();
+        Map<String, String> cityCountry = new HashMap<>();
         try{
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             String line;
@@ -245,7 +238,7 @@ public class CharacteristicsRecognitionService {
                 cityCountry.put(cityCountryValues[0].replaceAll("[^A-Za-z\\s]" ,""), cityCountryValues[1].replaceAll("[^A-Za-z\\s]" ,""));
             }
         }catch (IOException e){
-            System.out.println(e);
+            e.printStackTrace();
         }
         return cityCountry;
     }
@@ -259,8 +252,6 @@ public class CharacteristicsRecognitionService {
         for(String string : occurencyOfWords){
             map.put(string, Collections.frequency(list, string));
         }
-
-        System.out.println(map);
 
         if(!map.isEmpty()) {
             word = Collections.max(map.entrySet(), Comparator.comparingInt(Map.Entry::getValue)).getKey();
