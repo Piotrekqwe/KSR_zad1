@@ -9,6 +9,7 @@ import java.util.List;
 
 public class KnnCalculator {
     private List<ArticleCharacteristic> learningCollection;
+    StringComparisonMethod stringComparisonMethod;
 
     public void setLearningCollection(List<ArticleCharacteristic> learningCollection) {
         this.learningCollection = learningCollection;
@@ -58,11 +59,7 @@ public class KnnCalculator {
             }
 
             //largestAmountCitiesCountry
-            if(article.getLargestAmountCitiesCountry().equals(learningArticle.getLargestAmountCitiesCountry())){
-                distance[5] = 0;
-            }else{
-                distance[5] = 1;
-            }
+            distance[5] = stringComparisonMethod.compare(article.getLargestAmountCitiesCountry(), learningArticle.getLargestAmountCitiesCountry());
 
             //currency
             if(article.getCurrency().equals(learningArticle.getCurrency())){
@@ -119,6 +116,10 @@ public class KnnCalculator {
         }
 
         return result;
+    }
+
+    public void setStringComparisonMethod(StringComparisonMethod stringComparisonMethod) {
+        this.stringComparisonMethod = stringComparisonMethod;
     }
 
     private static class ComparedArticle {

@@ -20,9 +20,10 @@
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             </columnConstraints>
             <rowConstraints>
+                <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="15.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" percentHeight="20.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
                 <GridPane>
@@ -33,14 +34,69 @@
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="btn1" focusTraversable="false" mnemonicParsing="false" onAction="#readDataFromFile" text="Wczytaj dane" GridPane.halignment="CENTER" />
+                        <Text fx:id="loadText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" />
+                    </children>
+                </GridPane>
+                <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+               <children>
+                  <TextField fx:id="trainSetSize"  text="50" GridPane.valignment="BOTTOM">
+                     <GridPane.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </GridPane.margin></TextField>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="\% Artykułów w zbiorze uczącym" GridPane.valignment="TOP">
+                     <GridPane.margin>
+                        <Insets left="10.0" />
+                     </GridPane.margin></Text>
+               </children>
+                </GridPane>
+                <GridPane GridPane.rowIndex="2">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Button fx:id="btn1" focusTraversable="false" mnemonicParsing="false" onAction="#readDataFromFile" text="Wczytaj dane" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Porównywanie tekstu:">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets left="20.0" />
+                            </GridPane.margin>
+                        </Text>
+                        <RadioButton fx:id="defaultBtn" mnemonicParsing="false" selected="true" text="1 do 1" GridPane.rowIndex="1">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="stringComparisonMethodToggle" />
+                            </toggleGroup>
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="nGramBtn" mnemonicParsing="false" text="N-Gram" toggleGroup="$stringComparisonMethodToggle" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </RadioButton>
                     </children>
                 </GridPane>
-                <GridPane GridPane.rowIndex="2">
+                <GridPane GridPane.rowIndex="3">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                     </columnConstraints>
@@ -55,26 +111,28 @@
                             <toggleGroup>
                                 <ToggleGroup fx:id="methodToggle" />
                             </toggleGroup>
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin>
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
                         </RadioButton>
                         <RadioButton fx:id="manhattanBtn" mnemonicParsing="false" text="manhattan" toggleGroup="$methodToggle" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin></RadioButton>
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </RadioButton>
                         <RadioButton fx:id="chebyshevBtn" mnemonicParsing="false" text="chebyshev" toggleGroup="$methodToggle" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets left="10.0" />
-                     </GridPane.margin></RadioButton>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Metryka:">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </Text>
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </RadioButton>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Metryka:">
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                            <GridPane.margin>
+                                <Insets left="20.0" />
+                            </GridPane.margin>
+                        </Text>
                     </children>
                 </GridPane>
             </children>
@@ -123,7 +181,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Waluta:" GridPane.rowIndex="7" GridPane.valignment="TOP" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Format daty:" GridPane.rowIndex="8" GridPane.valignment="TOP" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jednostki długości:" GridPane.rowIndex="9" GridPane.valignment="TOP" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jednostki długości:" GridPane.rowIndex="10" GridPane.valignment="TOP" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Jednostki temperatury:" GridPane.rowIndex="10" GridPane.valignment="TOP" />
                         <TextField fx:id="sentencesAmountWeight" text="1" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                             <GridPane.margin>
                                 <Insets bottom="5.0" />
@@ -179,67 +237,106 @@
                 <Button fx:id="calculateBtn" focusTraversable="false" mnemonicParsing="false" onAction="#calculate" text="Oblicz" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             </children>
         </GridPane>
-      <GridPane GridPane.columnIndex="2">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <GridPane>
-              <columnConstraints>
+        <GridPane GridPane.columnIndex="2">
+            <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" percentHeight="50.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wyniki:">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-                  <Text fx:id="accuracyDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Accuracy = " GridPane.rowIndex="1" />
-                  <Text fx:id="precisionDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Precision = " GridPane.rowIndex="2" />
-                  <Text fx:id="recallDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Recall = " GridPane.rowIndex="3" />
-                  <Text fx:id="F1Display" strokeType="OUTSIDE" strokeWidth="0.0" text="F1 = " GridPane.rowIndex="4" />
-               </children>
-            </GridPane>
-            <GridPane GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <RadioButton fx:id="WestGermanyBtn" mnemonicParsing="false" selected="true" text="West Germany">
-                   <toggleGroup>
-                       <ToggleGroup fx:id="countryToggle" />
-                   </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="USABtn" mnemonicParsing="false" text="USA" toggleGroup="$countryToggle" GridPane.rowIndex="1" />
-                  <RadioButton fx:id="FranceBtn" mnemonicParsing="false" text="France" toggleGroup="$countryToggle" GridPane.rowIndex="2" />
-                  <RadioButton fx:id="UKBtn" mnemonicParsing="false" text="UK" toggleGroup="$countryToggle" GridPane.rowIndex="3" />
-                  <RadioButton fx:id="CanadaBtn" mnemonicParsing="false" text="Canada" toggleGroup="$countryToggle" GridPane.rowIndex="4" />
-                  <RadioButton fx:id="JapanBtn" mnemonicParsing="false" text="Japan" toggleGroup="$countryToggle" GridPane.rowIndex="5" />
-               </children>
-            </GridPane>
-         </children>
-      </GridPane>
+            </rowConstraints>
+            <children>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wyniki:">
+                            <GridPane.margin>
+                                <Insets left="20.0" />
+                            </GridPane.margin>
+                            <font>
+                                <Font size="18.0" />
+                            </font>
+                        </Text>
+                        <Text fx:id="accuracyDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Accuracy = " GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </Text>
+                        <Text fx:id="precisionDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Precision = " GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </Text>
+                        <Text fx:id="recallDisplay" strokeType="OUTSIDE" strokeWidth="0.0" text="Recall = " GridPane.rowIndex="3">
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </Text>
+                        <Text fx:id="F1Display" strokeType="OUTSIDE" strokeWidth="0.0" text="F1 = " GridPane.rowIndex="4">
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </Text>
+                    </children>
+                </GridPane>
+                <GridPane GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <RadioButton fx:id="WestGermanyBtn" mnemonicParsing="false" onAction="#calculateValues" selected="true" text="West Germany">
+                            <toggleGroup>
+                                <ToggleGroup fx:id="countryToggle" />
+                            </toggleGroup>
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="USABtn" mnemonicParsing="false" onAction="#calculateValues" text="USA" toggleGroup="$countryToggle" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="FranceBtn" mnemonicParsing="false" onAction="#calculateValues" text="France" toggleGroup="$countryToggle" GridPane.rowIndex="2">
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="UKBtn" mnemonicParsing="false" onAction="#calculateValues" text="UK" toggleGroup="$countryToggle" GridPane.rowIndex="3">
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="CanadaBtn" mnemonicParsing="false" onAction="#calculateValues" text="Canada" toggleGroup="$countryToggle" GridPane.rowIndex="4">
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="JapanBtn" mnemonicParsing="false" onAction="#calculateValues" text="Japan" toggleGroup="$countryToggle" GridPane.rowIndex="5">
+                            <GridPane.margin>
+                                <Insets left="10.0" />
+                            </GridPane.margin>
+                        </RadioButton>
+                    </children>
+                </GridPane>
+            </children>
+        </GridPane>
     </children>
 </GridPane>

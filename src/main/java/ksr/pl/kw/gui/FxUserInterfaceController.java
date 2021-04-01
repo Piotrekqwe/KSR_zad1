@@ -8,6 +8,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import ksr.pl.kw.classification.Country;
 import ksr.pl.kw.classification.Method;
+import ksr.pl.kw.classification.StringComparisonMethod;
 
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -20,6 +21,9 @@ public class FxUserInterfaceController implements Initializable {
     List<ClassifiedArticle> classifiedArticles;
 
     public Button btn1, calculateBtn;
+    public Text loadText;
+    public TextField trainSetSize;
+
     public TextField sentencesAmountWeight;
     public TextField digitsAmountWeight;
     public TextField shortWordsAmountWeight;
@@ -30,14 +34,14 @@ public class FxUserInterfaceController implements Initializable {
     public TextField dateFormatWeight;
     public TextField lengthUnitWeight;
     public TextField temperatureUnitWeight;
-    public ToggleGroup methodToggle;
-    public RadioButton euclidesBtn;
-    public RadioButton manhattanBtn;
-    public RadioButton chebyshevBtn;
     public Text accuracyDisplay;
     public Text precisionDisplay;
     public Text recallDisplay;
     public Text F1Display;
+    public ToggleGroup methodToggle;
+    public RadioButton euclidesBtn;
+    public RadioButton manhattanBtn;
+    public RadioButton chebyshevBtn;
     public ToggleGroup countryToggle;
     public RadioButton WestGermanyBtn;
     public RadioButton USABtn;
@@ -45,9 +49,13 @@ public class FxUserInterfaceController implements Initializable {
     public RadioButton UKBtn;
     public RadioButton CanadaBtn;
     public RadioButton JapanBtn;
+    public ToggleGroup stringComparisonMethodToggle;
+    public RadioButton defaultBtn;
+    public RadioButton nGramBtn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        numbersOnlyTextField(trainSetSize);
         numbersOnlyTextField(sentencesAmountWeight);
         numbersOnlyTextField(digitsAmountWeight);
         numbersOnlyTextField(shortWordsAmountWeight);
@@ -79,11 +87,26 @@ public class FxUserInterfaceController implements Initializable {
     }
 
     public void readDataFromFile() {
-        Configuration.getExtractionService().extract();
+        new Thread(() -> {
+            loadText.setText("Wczytywanie");
+            Configuration.getExtractionService().extract();
+            loadText.setText("Zakończone");
+        }).start();
     }
 
     public void calculate() {
         Method method;
+        StringComparisonMethod stringComparisonMethod;
+
+        Configuration.getExtractionService().split(Integer.parseInt(trainSetSize.getText()));
+
+        Toggle stringToggle = stringComparisonMethodToggle.getSelectedToggle();
+        if (nGramBtn.equals(stringToggle)) {
+            stringComparisonMethod = StringComparisonMethod.N_GRAM;
+        } else {
+            stringComparisonMethod = StringComparisonMethod.DEFAULT;
+        }
+
         Toggle selectedToggle = methodToggle.getSelectedToggle();
         if (euclidesBtn.equals(selectedToggle)) {
             method = Method.EUCLIDES;
@@ -105,7 +128,7 @@ public class FxUserInterfaceController implements Initializable {
         weights[8] = Double.parseDouble(lengthUnitWeight.getText());
         weights[9] = Double.parseDouble(temperatureUnitWeight.getText());
 
-        classifiedArticles = Configuration.getClassificationService().classify(method, 10, weights);
+        classifiedArticles = Configuration.getClassificationService().classify(method, 10, weights, stringComparisonMethod);
         calculateValues();
     }
 
