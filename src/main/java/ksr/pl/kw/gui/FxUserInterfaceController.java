@@ -23,6 +23,7 @@ public class FxUserInterfaceController implements Initializable {
     public Button btn1, calculateBtn;
     public Text loadText;
     public TextField trainSetSize;
+    public CheckBox normalizationBtn;
 
     public TextField sentencesAmountWeight;
     public TextField digitsAmountWeight;
@@ -98,7 +99,12 @@ public class FxUserInterfaceController implements Initializable {
         Method method;
         StringComparisonMethod stringComparisonMethod;
 
-        Configuration.getExtractionService().split(Integer.parseInt(trainSetSize.getText()));
+        if(normalizationBtn.isSelected()){
+            Configuration.getExtractionService().evenSplit(Integer.parseInt(trainSetSize.getText()));
+        }
+        else{
+            Configuration.getExtractionService().split(Integer.parseInt(trainSetSize.getText()));
+        }
 
         Toggle stringToggle = stringComparisonMethodToggle.getSelectedToggle();
         if (nGramBtn.equals(stringToggle)) {

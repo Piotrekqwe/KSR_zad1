@@ -16,6 +16,8 @@ public enum Country {
         this.id = id;
     }
 
+    public static final int NUMBER_OF_COUNTRIES = 6;
+
     public static Country findById(int id) {
         return Arrays.stream(Country.values()).filter(country1 -> country1.id == id).findAny().orElseThrow(IllegalStateException::new);
     }
