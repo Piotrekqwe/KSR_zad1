@@ -15,6 +15,10 @@ public class ArticleClassificationService {
         this.testCollection = testCollection;
     }
 
+    public List<ArticleCharacteristic> getTestCollection() {
+        return testCollection;
+    }
+
     public List<ClassifiedArticle> classify(Method method, int K, double[] weights, StringComparisonMethod stringComparisonMethod) {
         if (testCollection == null || testCollection.isEmpty()) {
             return Collections.emptyList();

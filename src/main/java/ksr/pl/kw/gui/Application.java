@@ -19,31 +19,14 @@ public class Application extends javafx.application.Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader().getResource("MainStage.fxml")));
 
         stage.setTitle("Klasyfikacja dokumentów tekstowych");
-        stage.setScene(new Scene(root,800,600));
+        stage.setScene(new Scene(root, 1000, 600));
+        stage.setOnCloseRequest(event -> {
+            FxUserInterfaceController.es.shutdown();
+        });
         stage.show();
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         launch();
-        ArticleDeserializer articleDeserializer = new ArticleDeserializer();
-        CharacteristicsRecognitionService cRS = new CharacteristicsRecognitionService();
-        for(ArticleDTO articleDTO : articleDeserializer.getAllArticles()){
-
-            //System.out.println(articleDTO.stopWordsRemover());
-
-            //System.out.println(cRS.amountOfSentences(articleDTO));
-            //System.out.println(cRS.digitsAmount(articleDTO));
-            //System.out.println(cRS.shortWordsAmount(articleDTO));
-            //System.out.println(cRS.longWordsAmount(articleDTO));
-            //System.out.println(cRS.wordsAmountInArticle(articleDTO));
-            //System.out.println(cRS.largestAmountCitiesCountry(articleDTO));
-            //System.out.println(cRS.largestAmountCurrency(articleDTO));
-            //System.out.println(cRS.largestAmountDateFormat(articleDTO));
-            //System.out.println(cRS.largestAmountLengthUnit(articleDTO));
-            //System.out.println(cRS.largestAmountTemperatureUnit(articleDTO));
-
-        }
-
     }
-
 }

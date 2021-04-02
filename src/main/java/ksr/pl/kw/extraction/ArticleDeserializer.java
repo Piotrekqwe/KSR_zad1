@@ -98,7 +98,7 @@ public class ArticleDeserializer {
     }
 
     private boolean selectCountries(String countryFromArticle){
-        String [] countries={"west-germany", "usa", "france", "uk", "canada japan"};
+        String [] countries={"west-germany", "usa", "france", "uk", "canada", "japan"};
         List<String> countryList=new ArrayList<String>(Arrays.asList(countries));
         for(String country : countryList)
             if(countryFromArticle.equals(country))

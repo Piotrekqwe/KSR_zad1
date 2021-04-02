@@ -83,12 +83,13 @@ public class CharacteristicsRecognitionService {
     }
 
     //country (cities)
+    private static final Map <String, String> cityCountry = readDatafromCSV("src/main/resources/data/worldcities.csv");
     public String largestAmountCitiesCountry(ArticleDTO articleDTO){
         String theMostFrequentCountry = "";
 
         //System.out.println(readDatafromCSV("K:\\PL_INFORMATYKA\\SEMESTR_6\\Komputerowe_systemy_rozpoznawania\\Projekt_1\\worldcities.csv"));
 
-        Map <String, String> cityCountry = readDatafromCSV("src/main/resources/data/worldcities.csv");
+
         List<String> textWithNoStopWords = articleDTO.stopWordsRemover();
         List<String> countriesOfCitiesFromArticle = new ArrayList<String>();
         List<String> citiesFromMap = new ArrayList<String>(cityCountry.keySet());
@@ -222,7 +223,7 @@ public class CharacteristicsRecognitionService {
                 largestAmountDateFormat(DTO), largestAmountLengthUnit(DTO), largestAmountTemperatureUnit(DTO));
     }
 
-    private Map<String, String> readDatafromCSV(String path){
+    private static Map<String, String> readDatafromCSV(String path){
 
         Map<String, String> cityCountry = new HashMap<>();
         try{

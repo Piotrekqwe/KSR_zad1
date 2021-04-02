@@ -2,6 +2,7 @@ package ksr.pl.kw.gui;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
@@ -9,21 +10,29 @@ import javafx.scene.text.Text;
 import ksr.pl.kw.classification.Country;
 import ksr.pl.kw.classification.Method;
 import ksr.pl.kw.classification.StringComparisonMethod;
+import ksr.pl.kw.extraction.ArticleCharacteristic;
 
 import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class FxUserInterfaceController implements Initializable {
 
+    public TextField KValue;
     List<ClassifiedArticle> classifiedArticles;
+    public static final ExecutorService es = Executors.newFixedThreadPool(1);
 
-    public Button btn1, calculateBtn;
+    public Button btn1;
     public Text loadText;
+    public Text trainSizeText;
     public TextField trainSetSize;
     public CheckBox normalizationBtn;
+    public Button calculateBtn;
+    public Text calculateText;
 
     public TextField sentencesAmountWeight;
     public TextField digitsAmountWeight;
@@ -50,6 +59,12 @@ public class FxUserInterfaceController implements Initializable {
     public RadioButton UKBtn;
     public RadioButton CanadaBtn;
     public RadioButton JapanBtn;
+    public Text WestGermanyCountDisplay;
+    public Text USACountDisplay;
+    public Text FranceCountDisplay;
+    public Text UKCountDisplay;
+    public Text CanadaCountDisplay;
+    public Text JapanCountDisplay;
     public ToggleGroup stringComparisonMethodToggle;
     public RadioButton defaultBtn;
     public RadioButton nGramBtn;
@@ -81,61 +96,75 @@ public class FxUserInterfaceController implements Initializable {
         });
     }
 
-    public void keyPress(KeyEvent key) {
-    }
-
-    public void keyRelease(KeyEvent key) {
-    }
-
     public void readDataFromFile() {
-        new Thread(() -> {
+        es.submit(() -> {
             loadText.setText("Wczytywanie");
             Configuration.getExtractionService().extract();
             loadText.setText("Zakończone");
-        }).start();
+        });
     }
 
     public void calculate() {
-        Method method;
-        StringComparisonMethod stringComparisonMethod;
+        es.submit(() -> {
+            calculateText.setText("Obliczanie");
+            Method method;
+            StringComparisonMethod stringComparisonMethod;
 
-        if(normalizationBtn.isSelected()){
-            Configuration.getExtractionService().evenSplit(Integer.parseInt(trainSetSize.getText()));
-        }
-        else{
-            Configuration.getExtractionService().split(Integer.parseInt(trainSetSize.getText()));
-        }
+            if (normalizationBtn.isSelected()) {
+                Configuration.getExtractionService().evenSplit(Integer.parseInt(trainSetSize.getText()));
+            } else {
+                Configuration.getExtractionService().split(Integer.parseInt(trainSetSize.getText()));
+            }
 
-        Toggle stringToggle = stringComparisonMethodToggle.getSelectedToggle();
-        if (nGramBtn.equals(stringToggle)) {
-            stringComparisonMethod = StringComparisonMethod.N_GRAM;
-        } else {
-            stringComparisonMethod = StringComparisonMethod.DEFAULT;
-        }
+            int[] testSum = new int[Country.NUMBER_OF_COUNTRIES];
+            int[] learnSum = new int[Country.NUMBER_OF_COUNTRIES];
+            for (ArticleCharacteristic article : Configuration.getClassificationService().getTestCollection()) {
+                testSum[article.getCountry().id]++;
+            }
+            for (ArticleCharacteristic article : Configuration.getCalculator().getLearningCollection()) {
+                learnSum[article.getCountry().id]++;
+            }
 
-        Toggle selectedToggle = methodToggle.getSelectedToggle();
-        if (euclidesBtn.equals(selectedToggle)) {
-            method = Method.EUCLIDES;
-        } else if (manhattanBtn.equals(selectedToggle)) {
-            method = Method.MANHATTAN;
-        } else {
-            method = Method.CHEBYSHEV;
-        }
+            WestGermanyCountDisplay.setText(testSum[0] + "/" + learnSum[0]);
+            USACountDisplay.setText(testSum[1] + "/" + learnSum[1]);
+            FranceCountDisplay.setText(testSum[2] + "/" + learnSum[2]);
+            UKCountDisplay.setText(testSum[3] + "/" + learnSum[3]);
+            CanadaCountDisplay.setText(testSum[4] + "/" + learnSum[4]);
+            JapanCountDisplay.setText(testSum[5] + "/" + learnSum[5]);
 
-        double[] weights = new double[10];
-        weights[0] = Double.parseDouble(sentencesAmountWeight.getText());
-        weights[1] = Double.parseDouble(digitsAmountWeight.getText());
-        weights[2] = Double.parseDouble(shortWordsAmountWeight.getText());
-        weights[3] = Double.parseDouble(longWordsAmountWeight.getText());
-        weights[4] = Double.parseDouble(textLengthWeight.getText());
-        weights[5] = Double.parseDouble(largestAmountCitiesCountryWeight.getText());
-        weights[6] = Double.parseDouble(currencyWeight.getText());
-        weights[7] = Double.parseDouble(dateFormatWeight.getText());
-        weights[8] = Double.parseDouble(lengthUnitWeight.getText());
-        weights[9] = Double.parseDouble(temperatureUnitWeight.getText());
+            Toggle stringToggle = stringComparisonMethodToggle.getSelectedToggle();
+            if (nGramBtn.equals(stringToggle)) {
+                stringComparisonMethod = StringComparisonMethod.N_GRAM;
+            } else {
+                stringComparisonMethod = StringComparisonMethod.DEFAULT;
+            }
 
-        classifiedArticles = Configuration.getClassificationService().classify(method, 10, weights, stringComparisonMethod);
-        calculateValues();
+            Toggle selectedToggle = methodToggle.getSelectedToggle();
+            if (euclidesBtn.equals(selectedToggle)) {
+                method = Method.EUCLIDES;
+            } else if (manhattanBtn.equals(selectedToggle)) {
+                method = Method.MANHATTAN;
+            } else {
+                method = Method.CHEBYSHEV;
+            }
+
+            double[] weights = new double[10];
+            weights[0] = Double.parseDouble(sentencesAmountWeight.getText());
+            weights[1] = Double.parseDouble(digitsAmountWeight.getText());
+            weights[2] = Double.parseDouble(shortWordsAmountWeight.getText());
+            weights[3] = Double.parseDouble(longWordsAmountWeight.getText());
+            weights[4] = Double.parseDouble(textLengthWeight.getText());
+            weights[5] = Double.parseDouble(largestAmountCitiesCountryWeight.getText());
+            weights[6] = Double.parseDouble(currencyWeight.getText());
+            weights[7] = Double.parseDouble(dateFormatWeight.getText());
+            weights[8] = Double.parseDouble(lengthUnitWeight.getText());
+            weights[9] = Double.parseDouble(temperatureUnitWeight.getText());
+
+            classifiedArticles = Configuration.getClassificationService().classify(method, Integer.parseInt(KValue.getText()), weights, stringComparisonMethod);
+            calculateValues();
+
+            calculateText.setText("Zakończone");
+        });
     }
 
     private static final DecimalFormat df3 = new DecimalFormat("#.###");
@@ -193,5 +222,14 @@ public class FxUserInterfaceController implements Initializable {
         recallDisplay.setText("Recall = " + df3.format(recall));
         F1Display.setText("F1 = " + df3.format(F1));
 
+    }
+
+    public void changeLearnSizeText(ActionEvent actionEvent) {
+        if(normalizationBtn.isSelected()){
+            trainSizeText.setText("Liczba artykułów z każdego państwa w zbiorze uczącym");
+        }
+        else{
+            trainSizeText.setText("% Artykułów w zbiorze uczącym");
+        }
     }
 }

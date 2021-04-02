@@ -15,6 +15,10 @@ public class KnnCalculator {
         this.learningCollection = learningCollection;
     }
 
+    public List<ArticleCharacteristic> getLearningCollection() {
+        return learningCollection;
+    }
+
     public Country classify(ArticleCharacteristic article, Method method, int K, double[] weights) {
         ArrayList<ComparedArticle> articles = new ArrayList<>(learningCollection.size());
         Country result = Country.USA;
@@ -98,7 +102,7 @@ public class KnnCalculator {
 
         articles.sort(Comparator.comparing(comparedArticle -> comparedArticle.distance));
 
-        if (K < articles.size()) {
+        if (K > articles.size()) {
             K = articles.size();
         }
 
