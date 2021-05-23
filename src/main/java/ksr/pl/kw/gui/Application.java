@@ -1,15 +1,9 @@
 package ksr.pl.kw.gui;
 
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ksr.pl.kw.extraction.ArticleDTO;
-import ksr.pl.kw.extraction.ArticleDeserializer;
-import ksr.pl.kw.extraction.CharacteristicsRecognitionService;
-
-import java.io.IOException;
 import java.util.Objects;
 
 public class Application extends javafx.application.Application {
